@@ -1,0 +1,24 @@
+{
+    "title": "Continuous Integration Optimization Experiment",
+    "description": "Automated testing of gradient descent optimization on benchmark functions (Rosenbrock, Sphere, Quadratic) with known analytical solutions. This experiment demonstrates reproducible optimization testing with CI/CD integration.",
+    "upload_type": "software",
+    "creators": [
+        {
+            "name": "Research Team"
+        }
+    ],
+    "keywords": [
+        "optimization",
+        "continuous integration",
+        "gradient descent",
+        "reproducibility",
+        "rosenbrock function",
+        "benchmark functions",
+        "automated testing"
+    ],
+    "license": "MIT",
+    "access_right": "open",
+    "language": "eng",
+    "related_identifiers": [],
+    "contributors": []
+}
