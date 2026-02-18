@@ -240,7 +240,7 @@
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        
+
         .resource-section {
             margin-top: 15px;
         }
@@ -289,12 +289,20 @@
             benchmark optimization functions.</p>
 
         <h3>Use Case: Developing a New Optimization Method</h3>
-        
-        <p><strong>Scenario:</strong> Imagine you're developing a new optimization algorithm or improving an existing gradient descent method. You make changes to the learning rate schedule, add momentum, or implement adaptive step sizes. How do you ensure your modifications don't break the optimizer's ability to solve even simple problems?</p>
-        
-        <p><strong>Solution:</strong> Continuous Integration provides automated verification that runs every time you push code. The CI tests guarantee that your optimizer still works on benchmark problems with known solutions (like Rosenbrock and Sphere functions). If you accidentally introduce a bug—maybe a sign error in the gradient update or an incorrect convergence condition—the CI will catch it immediately with a red ❌ status, preventing broken code from reaching the main branch.</p>
-        
-        <p>This safety net allows you to experiment freely, knowing that fundamental correctness is continuously verified without manual testing.</p>
+
+        <p><strong>Scenario:</strong> Imagine you're developing a new optimization algorithm or improving an existing
+            gradient descent method. You make changes to the learning rate schedule, add momentum, or implement adaptive
+            step sizes. How do you ensure your modifications don't break the optimizer's ability to solve even simple
+            problems?</p>
+
+        <p><strong>Solution:</strong> Continuous Integration provides automated verification that runs every time you
+            push code. The CI tests guarantee that your optimizer still works on benchmark problems with known solutions
+            (like Rosenbrock and Sphere functions). If you accidentally introduce a bug—maybe a sign error in the
+            gradient update or an incorrect convergence condition—the CI will catch it immediately with a red ❌ status,
+            preventing broken code from reaching the main branch.</p>
+
+        <p>This safety net allows you to experiment freely, knowing that fundamental correctness is continuously
+            verified without manual testing.</p>
 
         <h3>The Test Functions</h3>
 
@@ -496,7 +504,7 @@ Max absolute difference: 2.24e-06 exceeds tolerance 1e-10
             <p><strong>GitHub Status:</strong> 🔴 Red X - Something broke, don't merge!</p>
         </div>
 
-        <h2>Project Structure</h2>
+
 
         <pre><code>ContinuousIntegrationTests/
 ├── .github/
@@ -508,8 +516,6 @@ Max absolute difference: 2.24e-06 exceeds tolerance 1e-10
 ├── requirements.txt                  <span class="highlight-comment"># Dependencies</span>
 └── README.md                         <span class="highlight-comment"># Documentation</span>
 </code></pre>
-
-        <h2>How to Run Locally</h2>
 
         <h3>Installation</h3>
         <pre><code>pip install -r requirements.txt</code></pre>
@@ -591,8 +597,10 @@ CI_DEMO_FAILURE=1 pytest test_minimal.py -v -s
         <ul>
             <li>
                 <strong>The Turing Way – Continuous Integration</strong><br>
-                <a href="https://book.the-turing-way.org/reproducible-research/ci/">https://book.the-turing-way.org/reproducible-research/ci/</a><br>
-                <em>Research-oriented overview of CI: why it matters for reproducibility, what to automate (tests, builds), and how CI fits into collaborative workflows.</em>
+                <a
+                    href="https://book.the-turing-way.org/reproducible-research/ci/">https://book.the-turing-way.org/reproducible-research/ci/</a><br>
+                <em>Research-oriented overview of CI: why it matters for reproducibility, what to automate (tests,
+                    builds), and how CI fits into collaborative workflows.</em>
             </li>
         </ul>
 
@@ -600,13 +608,16 @@ CI_DEMO_FAILURE=1 pytest test_minimal.py -v -s
         <ul>
             <li>
                 <strong>GitHub Actions – Continuous Integration</strong><br>
-                <a href="https://docs.github.com/en/actions/get-started/continuous-integration">https://docs.github.com/en/actions/get-started/continuous-integration</a><br>
-                <em>Official guide to setting up CI workflows with GitHub Actions (YAML workflows, running tests on push/PR, extending to package/release).</em>
+                <a
+                    href="https://docs.github.com/en/actions/get-started/continuous-integration">https://docs.github.com/en/actions/get-started/continuous-integration</a><br>
+                <em>Official guide to setting up CI workflows with GitHub Actions (YAML workflows, running tests on
+                    push/PR, extending to package/release).</em>
             </li>
             <li>
                 <strong>GitLab CI/CD Documentation</strong><br>
                 <a href="https://docs.gitlab.com/ci/">https://docs.gitlab.com/ci/</a><br>
-                <em>Official CI/CD documentation explaining pipelines, jobs, runners, and artifacts; useful if institutions use GitLab for research software hosting.</em>
+                <em>Official CI/CD documentation explaining pipelines, jobs, runners, and artifacts; useful if
+                    institutions use GitLab for research software hosting.</em>
             </li>
         </ul>
 
@@ -614,16 +625,20 @@ CI_DEMO_FAILURE=1 pytest test_minimal.py -v -s
         <ul>
             <li>
                 <strong>Microsoft Learn – Continuous Integration with GitHub Actions</strong><br>
-                <a href="https://learn.microsoft.com/en-us/training/modules/learn-continuous-integration-github-actions/">https://learn.microsoft.com/en-us/training/modules/learn-continuous-integration-github-actions/</a><br>
-                <em>Practical module with exercises on workflows, artifacts, environment variables, and secrets—useful for students who need a guided entry point.</em>
+                <a
+                    href="https://learn.microsoft.com/en-us/training/modules/learn-continuous-integration-github-actions/">https://learn.microsoft.com/en-us/training/modules/learn-continuous-integration-github-actions/</a><br>
+                <em>Practical module with exercises on workflows, artifacts, environment variables, and secrets—useful
+                    for students who need a guided entry point.</em>
             </li>
         </ul>
 
         <h3>Additional Tools & Documentation</h3>
         <ul>
             <li><a href="https://docs.pytest.org/">pytest Documentation</a> – Python testing framework</li>
-            <li><a href="https://numpy.org/doc/stable/reference/testing.html">NumPy Testing Guidelines</a> – Best practices for numerical testing</li>
-            <li><a href="https://github.com/AnginoA/Continuous_Integration_OptimizationTests">Full Project on GitHub</a> – Working example from this tutorial</li>
+            <li><a href="https://numpy.org/doc/stable/reference/testing.html">NumPy Testing Guidelines</a> – Best
+                practices for numerical testing</li>
+            <li><a href="https://github.com/AnginoA/Continuous_Integration_OptimizationTests">Full Project on GitHub</a>
+                – Working example from this tutorial</li>
         </ul>
 
         <footer>
