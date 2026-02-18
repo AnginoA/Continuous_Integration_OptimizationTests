@@ -1,24 +1,40 @@
 {
-    "title": "Continuous Integration Optimization Experiment",
-    "description": "Automated testing of gradient descent optimization on benchmark functions (Rosenbrock, Sphere, Quadratic) with known analytical solutions. This experiment demonstrates reproducible optimization testing with CI/CD integration.",
+    "title": "Continuous Integration for Numerical Optimization: Reproducible Testing Framework",
+    "description": "<p><strong>A reproducible research software demonstrating continuous integration for numerical optimization algorithms.</strong></p><p>This repository contains a complete framework for automated testing of gradient descent optimization methods using benchmark functions with known analytical solutions (Rosenbrock and Sphere functions). The project demonstrates best practices for reproducible computational research including:</p><ul><li>Automated CI/CD testing via GitHub Actions</li><li>Verification against analytical solutions</li><li>Complete environment specification with pinned dependencies</li><li>Comprehensive documentation and tutorials</li><li>Test output archiving for reproducibility verification</li></ul><p><strong>Contents:</strong></p><ul><li>Gradient descent optimizer implementation (optimizer.py)</li><li>Benchmark test functions with analytical solutions (test_functions.py)</li><li>Automated test suite (test_minimal.py, test_optimization.py)</li><li>CI/CD workflow configuration (.github/workflows/)</li><li>Interactive HTML tutorial (CI_Tutorial.html)</li><li>Complete documentation (README.md, CI_EXPLANATION.md)</li></ul><p><strong>Use Cases:</strong> This framework is designed for researchers developing new optimization methods who need automated verification that their algorithms correctly solve benchmark problems. Each archived version represents a tested, reproducible state of the codebase suitable for citation in academic publications.</p>",
     "upload_type": "software",
     "creators": [
         {
-            "name": "Research Team"
+            "name": "Angino, Andrea",
+            "affiliation": "FernUni Schweiz",
+            "orcid": ""
         }
     ],
     "keywords": [
-        "optimization",
         "continuous integration",
-        "gradient descent",
         "reproducibility",
-        "rosenbrock function",
+        "numerical optimization",
+        "gradient descent",
         "benchmark functions",
-        "automated testing"
+        "rosenbrock function",
+        "sphere function",
+        "automated testing",
+        "GitHub Actions",
+        "research software engineering",
+        "FAIR principles",
+        "computational science"
     ],
     "license": "MIT",
     "access_right": "open",
     "language": "eng",
-    "related_identifiers": [],
-    "contributors": []
+    "related_identifiers": [
+        {
+            "relation": "isSupplementTo",
+            "identifier": "https://github.com/AnginoA/Continuous_Integration_OptimizationTests",
+            "scheme": "url",
+            "resource_type": "software"
+        }
+    ],
+    "contributors": [],
+    "notes": "This software archive represents a specific version tested and validated by continuous integration. The archived code exactly matches the state verified by automated tests, ensuring full reproducibility of results.",
+    "version": ""
 }
