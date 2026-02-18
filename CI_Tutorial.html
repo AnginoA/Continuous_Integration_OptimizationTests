@@ -161,6 +161,24 @@
             border-left: 4px solid #28a745;
             padding: 15px;
             margin: 15px 0;
+            color: #155724;
+            font-weight: 500;
+        }
+
+        .success strong {
+            color: #0c4128;
+            font-weight: 700;
+        }
+
+        .success pre {
+            background-color: rgba(0, 0, 0, 0.15) !important;
+            color: #1e4620;
+            font-weight: 500;
+            border: 1px solid #28a745;
+        }
+
+        .success pre code {
+            color: #1e4620;
         }
 
         .failure {
@@ -168,19 +186,24 @@
             border-left: 4px solid #dc3545;
             padding: 15px;
             margin: 15px 0;
+            color: #721c24;
+            font-weight: 500;
         }
 
-        .workflow-diagram {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 8px;
-            margin: 25px 0;
+        .failure strong {
+            color: #4d0f16;
+            font-weight: 700;
         }
 
-        .workflow-step {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 15px;
+        .failure pre {
+            background-color: rgba(0, 0, 0, 0.15) !important;
+            color: #5a1117;
+            font-weight: 500;
+            border: 1px solid #dc3545;
+        }
+
+        .failure pre code {
+            color: #5a1117;
             margin: 10px 0;
             border-radius: 5px;
             border-left: 4px solid #ffd700;
@@ -297,8 +320,8 @@
 
         <p><strong>Solution:</strong> Continuous Integration provides automated verification that runs every time you
             push code. The CI tests guarantee that your optimizer still works on benchmark problems with known solutions
-            (like Rosenbrock and Sphere functions). If you accidentally introduce a bug—maybe a sign error in the
-            gradient update or an incorrect convergence condition—the CI will catch it immediately with a red ❌ status,
+            (like Rosenbrock and Sphere functions). If you accidentally introduce a bug, maybe a sign error in the
+            gradient update or an incorrect convergence condition, the CI will catch it immediately with a red ❌ status,
             preventing broken code from reaching the main branch.</p>
 
         <p>This safety net allows you to experiment freely, knowing that fundamental correctness is continuously
@@ -498,8 +521,8 @@ jobs:
             <li><strong>Complete job</strong> - Finalizes the workflow</li>
         </ul>
 
-        <p>Each step displays its execution time (typically 0-7 seconds per step, with the actual test execution taking
-            2-3 seconds). This visibility ensures you can verify that your optimizer works correctly on simple benchmark
+        <p>Each step displays its execution time. This visibility ensures you can verify that your optimizer works
+            correctly on simple benchmark
             problems immediately after every code change, providing confidence that fundamental correctness is
             maintained throughout development.</p>
 
@@ -536,14 +559,8 @@ Max absolute difference: 2.24e-06 exceeds tolerance 1e-10
 
 
         <pre><code>ContinuousIntegrationTests/
-├── .github/
-│   └── workflows/
-│       └── optimization_tests.yml    <span class="highlight-comment"># CI configuration</span>
-├── optimizer.py                      <span class="highlight-comment"># Gradient descent implementation</span>
-├── test_functions.py                 <span class="highlight-comment"># Rosenbrock, Sphere functions</span>
-├── test_minimal.py                   <span class="highlight-comment"># CI test suite</span>
-├── requirements.txt                  <span class="highlight-comment"># Dependencies</span>
-└── README.md                         <span class="highlight-comment"># Documentation</span>
+
+            
 </code></pre>
 
         <h3>Installation</h3>
@@ -552,7 +569,7 @@ Max absolute difference: 2.24e-06 exceeds tolerance 1e-10
         <h3>Run Tests (Success Mode)</h3>
         <pre><code>pytest test_minimal.py -v -s</code></pre>
 
-        <h3>Run Tests (Failure Demo)</h3>
+
         <pre><code><span class="highlight-comment"># Windows PowerShell:</span>
 $env:CI_DEMO_FAILURE="1"; pytest test_minimal.py -v -s
 
