@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Continuous Integration for Numerical Computing - Tutorial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .meta {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #34495e;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: #2c3e50;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .definition {
+            background-color: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .definition strong {
+            color: #2980b9;
+            font-size: 1.1em;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 20px 0;
+            line-height: 1.5;
+        }
+
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+
+        .highlight-python {
+            color: #61afef;
+        }
+
+        .highlight-keyword {
+            color: #c678dd;
+        }
+
+        .highlight-string {
+            color: #98c379;
+        }
+
+        .highlight-comment {
+            color: #5c6370;
+            font-style: italic;
+        }
+
+        .highlight-function {
+            color: #e5c07b;
+        }
+
+        ul,
+        ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .success {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .failure {
+            background-color: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .workflow-diagram {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .workflow-step {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #ffd700;
+        }
+
+        .advantages {
+            background-color: #d1f2eb;
+            border-left: 4px solid #1abc9c;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .disadvantages {
+            background-color: #fadbd8;
+            border-left: 4px solid #e74c3c;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 5px 10px;
+            margin: 5px 5px 5px 0;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+            color: #7f8c8d;
+            text-align: center;
+        }
+
+        .try-it {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .try-it:hover {
+            opacity: 0.9;
+        }
+
+        .complexity {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Continuous Integration for Numerical Computing</h1>
+            <div class="meta">
+                Last Updated: 18 Feb, 2026 | Author: Andrea Angino
+            </div>
+        </header>
+
+        <div class="definition">
+            <p><strong>Continuous Integration (CI)</strong> is a software development practice where code changes are
+                automatically tested every time they are committed to a repository. In numerical computing and
+                scientific programming, CI ensures that mathematical algorithms maintain their correctness and precision
+                across code changes.</p>
+        </div>
+
+        <p>This tutorial demonstrates how to implement CI for a numerical optimization problem, ensuring that your
+            gradient descent optimizer consistently finds known analytical solutions.</p>
+
+        <h2>What is Continuous Integration?</h2>
+
+        <p>Continuous Integration is the practice of automatically building and testing code whenever changes are pushed
+            to a version control system (like Git/GitHub). Instead of manually running tests, CI automates this process
+            to catch bugs early.</p>
+
+        <h3>Why is CI Important for Numerical Computing?</h3>
+
+        <ul>
+            <li><strong>Numerical Stability:</strong> Ensures algorithms don't degrade in precision over time</li>
+            <li><strong>Reproducibility:</strong> Verifies results remain consistent across environments</li>
+            <li><strong>Regression Detection:</strong> Catches when "improvements" actually break existing functionality
+            </li>
+            <li><strong>Confidence:</strong> Allows refactoring without fear of breaking working code</li>
+            <li><strong>Documentation:</strong> Tests serve as executable specifications of expected behavior</li>
+        </ul>
+
+        <h2>Example: Testing a Gradient Descent Optimizer</h2>
+
+        <p>We'll use a real-world example: verifying that a gradient descent optimizer can find known minima of
+            benchmark optimization functions.</p>
+
+        <h3>The Test Functions</h3>
+
+        <p>We use two standard benchmark functions with known analytical solutions:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Function</th>
+                    <th>Formula</th>
+                    <th>Known Minimum</th>
+                    <th>Minimum Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Rosenbrock</strong></td>
+                    <td>f(x,y) = (1-x)² + 100(y-x²)²</td>
+                    <td>(1, 1)</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td><strong>Sphere</strong></td>
+                    <td>f(x,y) = x² + y²</td>
+                    <td>(0, 0)</td>
+                    <td>0</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>The Optimizer Implementation</h3>
+
+        <pre><code><span class="highlight-comment"># optimizer.py</span>
+<span class="highlight-keyword">import</span> numpy <span class="highlight-keyword">as</span> np
+<span class="highlight-keyword">from</span> typing <span class="highlight-keyword">import</span> Callable, Tuple
+
+<span class="highlight-keyword">class</span> <span class="highlight-function">GradientDescent</span>:
+    <span class="highlight-string">"""Simple gradient descent optimizer."""</span>
+    
+    <span class="highlight-keyword">def</span> <span class="highlight-function">__init__</span>(self, 
+                 learning_rate: float = 0.01,
+                 max_iterations: int = 10000,
+                 tolerance: float = 1e-6):
+        self.learning_rate = learning_rate
+        self.max_iterations = max_iterations
+        self.tolerance = tolerance
+    
+    <span class="highlight-keyword">def</span> <span class="highlight-function">optimize</span>(self,
+                  objective_fn: Callable,
+                  gradient_fn: Callable,
+                  x0: np.ndarray) -> Tuple[np.ndarray, float, int]:
+        <span class="highlight-string">"""
+        Minimize objective function using gradient descent.
+        Returns: (optimal_point, optimal_value, iterations)
+        """</span>
+        x = x0.copy()
+        
+        <span class="highlight-keyword">for</span> iteration <span class="highlight-keyword">in</span> range(self.max_iterations):
+            grad = gradient_fn(x)
+            
+            <span class="highlight-comment"># Check convergence</span>
+            <span class="highlight-keyword">if</span> np.linalg.norm(grad) < self.tolerance:
+                <span class="highlight-keyword">break</span>
+            
+            <span class="highlight-comment"># Update step</span>
+            x = x - self.learning_rate * grad
+        
+        <span class="highlight-keyword">return</span> x, objective_fn(x), iteration + 1
+</code></pre>
+
+        <h3>Writing CI Tests</h3>
+
+        <p>The key to numerical CI is testing against <strong>known analytical solutions</strong>:</p>
+
+        <pre><code><span class="highlight-comment"># test_minimal.py</span>
+<span class="highlight-keyword">import</span> pytest
+<span class="highlight-keyword">import</span> numpy <span class="highlight-keyword">as</span> np
+<span class="highlight-keyword">from</span> optimizer <span class="highlight-keyword">import</span> GradientDescent
+<span class="highlight-keyword">from</span> test_functions <span class="highlight-keyword">import</span> rosenbrock, rosenbrock_grad
+
+<span class="highlight-keyword">def</span> <span class="highlight-function">test_rosenbrock</span>():
+    <span class="highlight-string">"""Test that optimizer finds Rosenbrock minimum at (1,1)"""</span>
+    
+    <span class="highlight-comment"># Initialize optimizer</span>
+    optimizer = GradientDescent(
+        learning_rate=0.001,
+        max_iterations=100000,
+        tolerance=1e-6
+    )
+    
+    <span class="highlight-comment"># Run optimization from random start point</span>
+    x0 = np.array([-1.0, -1.0])
+    result, value, iters = optimizer.optimize(
+        rosenbrock, 
+        rosenbrock_grad, 
+        x0
+    )
+    
+    <span class="highlight-comment"># Known analytical solution</span>
+    expected = np.array([1.0, 1.0])
+    
+    <span class="highlight-comment"># Verify optimizer found the solution</span>
+    distance = np.linalg.norm(result - expected)
+    <span class="highlight-keyword">assert</span> distance < 1e-3, <span class="highlight-string">f"Failed to converge: got {result}"</span>
+    <span class="highlight-keyword">assert</span> value < 1e-4, <span class="highlight-string">f"Function value too high: {value}"</span>
+    
+    print(<span class="highlight-string">f"✓ Converged in {iters} iterations to {result}"</span>)
+</code></pre>
+
+        <h2>The CI Pipeline</h2>
+
+        <div class="workflow-diagram">
+            <h3 style="margin-top: 0;">Automated Workflow</h3>
+            <div class="workflow-step">
+                <strong>Step 1: TRIGGER</strong><br>
+                Developer pushes code to GitHub
+            </div>
+            <div class="workflow-step">
+                <strong>Step 2: SETUP</strong><br>
+                GitHub Actions creates clean Python environment
+            </div>
+            <div class="workflow-step">
+                <strong>Step 3: INSTALL</strong><br>
+                Installs dependencies (numpy, pytest)
+            </div>
+            <div class="workflow-step">
+                <strong>Step 4: TEST</strong><br>
+                Runs optimization tests automatically
+            </div>
+            <div class="workflow-step">
+                <strong>Step 5: REPORT</strong><br>
+                Shows ✅ green if tests pass, ❌ red if they fail
+            </div>
+        </div>
+
+        <h3>GitHub Actions Configuration</h3>
+
+        <p>Create <code>.github/workflows/optimization_tests.yml</code>:</p>
+
+        <pre><code><span class="highlight-comment"># .github/workflows/optimization_tests.yml</span>
+name: Optimization Tests CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test-optimization:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run optimization tests
+      run: |
+        pytest test_minimal.py -v -s
+</code></pre>
+
+        <h2>Success vs Failure Cases</h2>
+
+        <h3>✅ Success Case: Tests Pass</h3>
+
+        <div class="success">
+            <strong>Output:</strong>
+            <pre style="background-color: rgba(0,0,0,0.1); margin-top: 10px;"><code>test_minimal.py::test_rosenbrock PASSED
+test_minimal.py::test_sphere PASSED
+
+✓ Rosenbrock converged in 32558 iters to [1.0 1.0] (f=1.25e-12)
+✓ Sphere converged in 74 iters to [0.0 0.0] (f=2.41e-13)
+
+====== 2 passed in 0.32s ======</code></pre>
+            <p><strong>GitHub Status:</strong> 🟢 Green checkmark - Code is safe to merge!</p>
+        </div>
+
+        <h3>❌ Failure Case: Tests Fail</h3>
+
+        <div class="failure">
+            <strong>Output (when precision requirement is too strict):</strong>
+            <pre style="background-color: rgba(0,0,0,0.1); margin-top: 10px;"><code>test_minimal.py::test_rosenbrock FAILED
+
+AssertionError: Rosenbrock failed: 
+Got [0.99999888 0.99999776], expected [1. 1.], distance=2.50e-06
+Max absolute difference: 2.24e-06 exceeds tolerance 1e-10
+
+====== 1 failed in 0.35s ======</code></pre>
+            <p><strong>GitHub Status:</strong> 🔴 Red X - Something broke, don't merge!</p>
+        </div>
+
+        <h2>Project Structure</h2>
+
+        <pre><code>ContinuousIntegrationTests/
+├── .github/
+│   └── workflows/
+│       └── optimization_tests.yml    <span class="highlight-comment"># CI configuration</span>
+├── optimizer.py                      <span class="highlight-comment"># Gradient descent implementation</span>
+├── test_functions.py                 <span class="highlight-comment"># Rosenbrock, Sphere functions</span>
+├── test_minimal.py                   <span class="highlight-comment"># CI test suite</span>
+├── requirements.txt                  <span class="highlight-comment"># Dependencies</span>
+└── README.md                         <span class="highlight-comment"># Documentation</span>
+</code></pre>
+
+        <h2>How to Run Locally</h2>
+
+        <h3>Installation</h3>
+        <pre><code>pip install -r requirements.txt</code></pre>
+
+        <h3>Run Tests (Success Mode)</h3>
+        <pre><code>pytest test_minimal.py -v -s</code></pre>
+
+        <h3>Run Tests (Failure Demo)</h3>
+        <pre><code><span class="highlight-comment"># Windows PowerShell:</span>
+$env:CI_DEMO_FAILURE="1"; pytest test_minimal.py -v -s
+
+<span class="highlight-comment"># Linux/Mac:</span>
+CI_DEMO_FAILURE=1 pytest test_minimal.py -v -s
+</code></pre>
+
+        <a href="https://github.com/AnginoA/Continuous_Integration_OptimizationTests" class="try-it">
+            Try it on GitHub →
+        </a>
+
+        <h2>Advantages of CI for Numerical Computing</h2>
+
+        <div class="advantages">
+            <h3>Benefits:</h3>
+            <ul>
+                <li><strong>Automatic Verification:</strong> No need to manually check if optimizers still work</li>
+                <li><strong>Early Bug Detection:</strong> Catch precision issues before they reach production</li>
+                <li><strong>Reproducibility:</strong> Same tests run in identical environments every time</li>
+                <li><strong>Safe Refactoring:</strong> Improve code structure without fear</li>
+                <li><strong>Documentation:</strong> Tests show exactly what behavior is expected</li>
+                <li><strong>Cross-Platform Testing:</strong> Verify code works on Linux, Mac, Windows</li>
+                <li><strong>Multiple Python Versions:</strong> Test against Python 3.8, 3.9, 3.10, etc.</li>
+            </ul>
+        </div>
+
+        <h2>Challenges in Numerical CI</h2>
+
+        <div class="disadvantages">
+            <h3>Considerations:</h3>
+            <ul>
+                <li><strong>Floating Point Precision:</strong> Need appropriate tolerances (too strict = false failures)
+                </li>
+                <li><strong>Non-Determinism:</strong> Random algorithms may need seed control</li>
+                <li><strong>Computation Time:</strong> Complex simulations may be too slow for CI</li>
+                <li><strong>Platform Differences:</strong> Results may vary slightly between Linux/Mac/Windows</li>
+                <li><strong>External Dependencies:</strong> Some numerical libraries behave differently across systems
+                </li>
+            </ul>
+        </div>
+
+        <h2>Complexity Analysis</h2>
+
+        <div class="complexity">
+            <h3>CI Overhead:</h3>
+            <table>
+                <tr>
+                    <th>Aspect</th>
+                    <th>Complexity</th>
+                    <th>Notes</th>
+                </tr>
+                <tr>
+                    <td>Setup Time</td>
+                    <td>O(1)</td>
+                    <td>~30 seconds per run (Python install + dependencies)</td>
+                </tr>
+                <tr>
+                    <td>Test Execution</td>
+                    <td>O(n)</td>
+                    <td>Linear in number of test cases</td>
+                </tr>
+                <tr>
+                    <td>Total CI Time</td>
+                    <td>Variable</td>
+                    <td>Depends on algorithm convergence (30s - 5min typical)</td>
+                </tr>
+            </table>
+        </div>
+
+        <h2>Best Practices for Numerical CI</h2>
+
+        <ol>
+            <li><strong>Use Analytical Solutions:</strong> Test against problems with known answers</li>
+            <li><strong>Set Appropriate Tolerances:</strong> Balance precision with reliability</li>
+            <li><strong>Fix Random Seeds:</strong> Ensure reproducibility of stochastic algorithms</li>
+            <li><strong>Test Edge Cases:</strong> Zero inputs, negative values, extreme scales</li>
+            <li><strong>Monitor Performance:</strong> Track not just correctness but also speed</li>
+            <li><strong>Version Control Everything:</strong> Including test data and expected results</li>
+            <li><strong>Document Assumptions:</strong> Explain why specific tolerances were chosen</li>
+        </ol>
+
+        <h2>Related Topics</h2>
+
+        <div>
+            <span class="tag">Testing</span>
+            <span class="tag">DevOps</span>
+            <span class="tag">Numerical Computing</span>
+            <span class="tag">GitHub Actions</span>
+            <span class="tag">Optimization</span>
+            <span class="tag">Gradient Descent</span>
+            <span class="tag">Python</span>
+            <span class="tag">pytest</span>
+            <span class="tag">Scientific Computing</span>
+        </div>
+
+        <h2>Additional Resources</h2>
+
+        <ul>
+            <li><a href="https://docs.github.com/en/actions">GitHub Actions Documentation</a></li>
+            <li><a href="https://docs.pytest.org/">pytest Documentation</a></li>
+            <li><a href="https://numpy.org/doc/stable/reference/testing.html">NumPy Testing Guidelines</a></li>
+            <li><a href="https://github.com/AnginoA/Continuous_Integration_OptimizationTests">Full Project on GitHub</a>
+            </li>
+        </ul>
+
+        <footer>
+            <p><strong>Repository:</strong> <a
+                    href="https://github.com/AnginoA/Continuous_Integration_OptimizationTests">github.com/AnginoA/Continuous_Integration_OptimizationTests</a>
+            </p>
+            <p>© 2026 Andrea Angino. This content is part of a reproducibility demonstration for continuous integration
+                in numerical computing.</p>
+        </footer>
+    </div>
+</body>
+
+</html>
