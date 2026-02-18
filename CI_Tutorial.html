@@ -474,6 +474,35 @@ jobs:
         pytest test_minimal.py -v -s
 </code></pre>
 
+        <h3>Monitoring CI Runs on GitHub</h3>
+
+        <p>After pushing your code to GitHub, the CI workflow automatically runs in the background. You can monitor the
+            test execution and results directly from the GitHub interface:</p>
+
+        <ol>
+            <li><strong>Navigate to the Actions tab</strong> in your repository</li>
+            <li><strong>Click on the latest workflow run</strong> to see detailed results</li>
+            <li><strong>View each step's status</strong> - all steps show green checkmarks ✓ when successful</li>
+            <li><strong>Re-run failed jobs</strong> using the "Re-run all jobs" button if needed</li>
+        </ol>
+
+        <p>The GitHub Actions interface shows the complete execution timeline:</p>
+
+        <ul>
+            <li><strong>Set up job</strong> - Initializes the virtual environment</li>
+            <li><strong>Checkout code</strong> - Clones your repository</li>
+            <li><strong>Set up Python</strong> - Installs specified Python version</li>
+            <li><strong>Install dependencies</strong> - Runs <code>pip install -r requirements.txt</code></li>
+            <li><strong>Run tests (SUCCESS mode)</strong> - Executes your optimization tests</li>
+            <li><strong>Post steps</strong> - Cleanup operations</li>
+            <li><strong>Complete job</strong> - Finalizes the workflow</li>
+        </ul>
+
+        <p>Each step displays its execution time (typically 0-7 seconds per step, with the actual test execution taking
+            2-3 seconds). This visibility ensures you can verify that your optimizer works correctly on simple benchmark
+            problems immediately after every code change, providing confidence that fundamental correctness is
+            maintained throughout development.</p>
+
         <h2>Success vs Failure Cases</h2>
 
         <h3>✅ Success Case: Tests Pass</h3>
