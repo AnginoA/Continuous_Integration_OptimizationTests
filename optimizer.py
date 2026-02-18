@@ -59,8 +59,9 @@ class GradientDescent:
             if grad_norm < self.tolerance:
                 if self.verbose:
                     print(f"Converged at iteration {iteration}")
-                break
 
+                break
+                # Add a comment to test git push
             # Update step
             x = x - self.learning_rate * grad
 
